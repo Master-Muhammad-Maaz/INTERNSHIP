@@ -3,332 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Internship Certificate - Codematrix</title>
+    <title>Dynamic Certificate System - Codematrix</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <style>
-        /* Base Styling */
-        body {
-            font-family: 'Times New Roman', Times, serif; /* Professional Serif Font */
-            background-color: #f0f2f5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding-top: 30px;
-        }
-
-        /* Color Scheme Variables */
-        :root {
-            --primary-color: #1a1a40; /* Very Dark Purple/IndiGo */
-            --accent-color: #ffd700; /* Gold for subtle accents */
-            --text-color: #2c2c2c;
-            --student-name-color: #0d0d26;
-        }
-
-        /* Form Styling (Not shown in print) */
-        .no-print {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            width: 800px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .form-group { margin-bottom: 10px; display: flex; align-items: center; }
-        .form-group label { width: 150px; font-weight: bold; color: var(--primary-color); }
-        .form-group input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
-
-        /* Certificate Container */
-        .certificate-container {
-            background-color: white;
-            width: 850px;
-            height: 1100px; /* A4 Portrait Ratio */
-            padding: 80px 60px;
-            border: 2px solid var(--primary-color); /* Dark Purple Border */
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* Watermark (Representative of image_3) */
-        .watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-15deg);
-            opacity: 0.05;
-            font-family: sans-serif;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            padding: 30px;
-            text-align: center;
-            width: 250px; height: 250px;
-        }
-
-        /* Header Section */
-        .header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 50px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 20px;
-        }
-        .logo-placeholder {
-            width: 60px; height: 60px;
-            background-color: var(--primary-color);
-            color: #fff; font-weight: bold;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 10px;
-            margin-right: 20px;
-            font-size: 24px;
-        }
-        .company-info h1 {
-            color: var(--primary-color);
-            margin: 0;
-            font-size: 28px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .company-info p {
-            margin: 0;
-            font-size: 12px;
-            color: #555;
-            letter-spacing: 3px;
-        }
-
-        /* Title */
-        .cert-title {
-            letter-spacing: 4px;
-            font-size: 16px;
-            color: var(--primary-color);
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        /* Main Content with dynamic text insertion */
-        .content {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .student-name {
-            font-size: 56px;
-            font-weight: bold;
-            margin: 15px 0;
-            color: var(--student-name-color);
-            display: inline-block;
-            border-bottom: 1px solid #ddd;
-        }
-        .internship-role {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        /* Dynamic Detail Blocks */
-        .details-container {
-            margin-top: 60px;
-            text-align: left;
-        }
-        .detail-item {
-            border: 1px solid #eef2f6;
-            border-radius: 18px;
-            padding: 15px 30px;
-            margin-bottom: 15px;
-            background-color: #fff;
-            border-left: 5px solid var(--primary-color); /* Professional left border */
-        }
-        .detail-item label {
-            display: block;
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        .detail-item span {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-
-        /* Manual ID Container (Blank initially) */
-        .manual-id-container {
-            margin-top: 30px;
-            border: 1px solid #ccc;
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
-        }
-        .manual-id-container label {
-            display: block; font-size: 10px; color: var(--primary-color);
-            margin-bottom: 5px; text-transform: uppercase; font-weight: bold;
-        }
-        .manual-id-value {
-            font-size: 18px; font-weight: bold; color: var(--student-name-color);
-            min-height: 25px; /* Keeps it structured when blank */
-            display: inline-block; width: 100%; border-bottom: 1px dashed #ccc;
-            cursor: text;
-        }
-
-        /* Footer Section */
-        .footer {
-            margin-top: 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            padding-top: 20px;
-            border-top: 2px solid var(--primary-color);
-        }
-
-        .signature-box {
-            width: 250px;
-            text-align: left;
-        }
-        .signature-text {
-            color: #333; font-weight: bold; margin-bottom: 10px;
-        }
-        /* Using cursive as representation of signature image_2 */
-        .signature-faizan {
-            font-family: 'Brush Script MT', cursive; font-size: 32px; color: var(--student-name-color);
-            margin: 0; display: inline-block; transform: rotate(-3deg);
-        }
-        .signatory-details {
-            margin-top: 5px; font-size: 12px; color: #555;
-            border-top: 1px solid #eee; padding-top: 5px;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eef1f5; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         
-        .seal-box {
-            text-align: center;
-            color: #0056b3;
-            transform: rotate(-10deg);
+        /* Input Panel (Hidden in Print) */
+        .admin-controls { background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 30px; width: 850px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .admin-controls h2 { grid-column: span 2; margin: 0 0 10px 0; color: #1a1a40; text-align: center; }
+        .input-box { display: flex; flex-direction: column; }
+        .input-box label { font-size: 11px; font-weight: bold; margin-bottom: 4px; color: #555; text-transform: uppercase; }
+        .input-box input { padding: 9px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        .btn-panel { grid-column: span 2; text-align: center; margin-top: 10px; }
+        .dl-btn { background: #1a1a40; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; transition: 0.3s; }
+        .dl-btn:hover { background: #333; }
+
+        /* Certificate Design */
+        #certificate {
+            width: 850px; height: 1100px; background: white; padding: 80px 60px;
+            border: 2px solid #ddd; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden;
         }
-        /* Representation of Seal from image_3 */
-        .seal-codematrix {
-            width: 100px; height: 100px;
-            border: 3px solid #0056b3;
-            border-radius: 50%;
+
+        /* Watermark */
+        .watermark-text {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            opacity: 0.05; font-weight: bold; font-size: 70px;
+            color: #1a1a40; pointer-events: none;
+        }
+
+        /* Header with Dark bar and Hexagon C logo */
+        .cert-header { background: #1a1a40; padding: 20px 30px; border-radius: 10px; color: white; display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; }
+        .cert-header h1 { margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .cert-header p { margin: 0; font-size: 11px; color: #ccc; letter-spacing: 3px; }
+        .hexagon-logo {
+            width: 55px; height: 55px; background: white; color: #1a1a40;
+            display: flex; align-items: center; justify-content: center;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            font-size: 24px; font-weight: bold;
+        }
+
+        /* Content Text */
+        .content { text-align: center; margin-top: 30px; flex-grow: 1; color: #333; line-height: 1.7; }
+        .intern-title { font-size: 16px; letter-spacing: 5px; color: #1a1a40; margin-bottom: 40px; }
+        .student-display-name { font-size: 55px; font-weight: bold; color: #000; margin: 20px 0; border-bottom: 2px solid #eaecef; display: inline-block; padding: 0 15px; }
+        .dyn-role, .dyn-start, .dyn-end { font-weight: 600; color: #1a1a40; }
+
+        /* Dynamic Detail Blocks (as in image) */
+        .details-stack { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; text-align: left; }
+        .stack-item { border: 1px solid #eef1f6; border-radius: 18px; padding: 12px 25px; border-left: 8px solid #1a1a40; box-shadow: 0 2px 4px rgba(0,0,0,0.01); }
+        .stack-item label { display: block; font-size: 10px; color: #999; text-transform: uppercase; font-weight: bold; margin-bottom: 4px; }
+        .stack-item span { font-size: 18px; font-weight: 600; color: #333; }
+
+        /* Manual ID Display */
+        .id-display-block { margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; text-align: center; }
+        .id-display-block label { font-size: 11px; color: #888; text-transform: uppercase; margin-right: 8px; }
+        .id-display-block span { font-size: 20px; font-weight: bold; color: #1a1a40; }
+
+        /* Footer with Sign and circular MSME Seal */
+        .cert-footer { margin-top: 60px; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 20px; border-top: 3px solid #1a1a40; }
+        .sign-box { width: 250px; text-align: left; }
+        .faizan-sign-cursive { font-family: 'Brush Script MT', cursive; font-size: 40px; color: #1a1a40; margin: 0; display: inline-block; transform: rotate(-4deg); }
+        .signatory-details { margin-top: 5px; font-size: 13px; color: #555; border-top: 1px solid #eee; padding-top: 5px; }
+        
+        /* Seal Designing as per image 6 */
+        .seal-circle-container { text-align: center; color: #0056b3; transform: rotate(-8deg); }
+        .codematrix-msme-seal {
+            width: 100px; height: 100px; border: 3px solid #0056b3; border-radius: 50%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             font-family: sans-serif; font-weight: bold; font-size: 10px;
-            text-transform: uppercase; padding: 5px; background: rgba(0,86,179,0.02);
+            text-transform: uppercase; background: rgba(0,86,179,0.01); padding: 5px;
+            position: relative;
         }
-        .seal-text-arch { font-size: 8px; margin-bottom: 5px; }
+        .arch-company-text { font-size: 9px; margin-bottom: 5px; border-bottom: 1px solid #0056b3; padding-bottom: 3px; }
+        .msme-main-text { font-size: 11px; display: flex; align-items: center; gap: 4px; margin: 3px 0;}
+        .msme-star { color: #0056b3; font-size: 12px; }
 
-        /* Print Controls */
+        /* Print Override */
         @media print {
-            .no-print { display: none; }
-            body { background-color: white; padding: 0; }
-            .certificate-container { border: 2px solid var(--primary-color); box-shadow: none; width: 100%; height: auto; }
-            .manual-id-value { border: none; } /* Clear dashes on print */
+            .admin-controls { display: none; }
+            body { background: white; padding: 0; }
+            #certificate { border: 2px solid #1a1a40; box-shadow: none; width: 100%; height: auto; }
         }
-
     </style>
 </head>
 <body>
 
-    <div class="no-print">
-        <h3 style="color: var(--primary-color); text-align: center;">Certificate Details Form</h3>
-        <p style="font-size: 12px; color: #555; text-align: center;">Fill form -> Check Preview -> Ctrl + P</p>
+    <div class="admin-controls">
+        <h2>Enter Certificate Details</h2>
+        <div class="input-box"><label>Full Name:</label><input type="text" id="inName" placeholder="e.g., Shaikh Farihan" oninput="update('outName', this.value)"></div>
+        <div class="input-box"><label>College:</label><input type="text" id="inCol" placeholder="e.g., College Name" oninput="update('outCol', this.value)"></div>
+        <div class="input-box"><label>Duration:</label><input type="text" id="inDur" placeholder="e.g., 150 Hours" oninput="update('outDur', this.value)"></div>
+        <div class="input-box"><label>Technologies:</label><input type="text" id="inTech" placeholder="e.g., React Js" oninput="update('outTech', this.value)"></div>
+        <div class="input-box"><label>Performance:</label><input type="text" id="inPerf" placeholder="e.g., Excellent" oninput="update('outPerf', this.value)"></div>
+        <div class="input-box"><label>Internship Type:</label><input type="text" id="inRole" placeholder="e.g., Web Developer" oninput="update('outRole', this.value)"></div>
+        <div class="input-box"><label>Start Date (YYYY-MM-DD):</label><input type="text" id="inStart" placeholder="e.g., 2026-01-01" oninput="update('outStart', this.value)"></div>
+        <div class="input-box"><label>End Date (YYYY-MM-DD):</label><input type="text" id="inEnd" placeholder="e.g., 2026-02-01" oninput="update('outEnd', this.value)"></div>
+        <div class="input-box"><label>Certificate ID:</label><input type="text" id="inID" placeholder="e.g., WRI06042622" oninput="update('outID', this.value)"></div>
         
-        <div class="form-group">
-            <label>Student Name:</label>
-            <input type="text" id="inputName" placeholder="e.g. Shaikh Farihan" oninput="updateCertText('certName', this.value)">
-        </div>
-        <div class="form-group">
-            <label>College Name:</label>
-            <input type="text" id="inputCollege" placeholder="e.g. Shri Shivaji College Akola" oninput="updateCertText('certCollege', this.value)">
-        </div>
-        <div class="form-group">
-            <label>Duration:</label>
-            <input type="text" id="inputDuration" placeholder="e.g. 150 Hours" oninput="updateCertText('certDuration', this.value)">
-        </div>
-        <div class="form-group">
-            <label>Technologies:</label>
-            <input type="text" id="inputTech" placeholder="e.g. React Js" oninput="updateCertText('certTech', this.value)">
-        </div>
-        <div class="form-group">
-            <label>Performance:</label>
-            <input type="text" id="inputPerformance" placeholder="e.g. Excellent" oninput="updateCertText('certPerformance', this.value)">
-        </div>
-        <div class="form-group">
-            <label>Internship Type:</label>
-            <input type="text" id="inputRole" placeholder="e.g. Web Developer" oninput="updateCertText('certRole', this.value)">
+        <div class="btn-panel">
+            <button class="dl-btn" onclick="generatePDF()">Download Certificate (PDF)</button>
         </div>
     </div>
 
-    <div class="certificate-container" id="certContainer">
+    <div id="certificate">
         
-        <div class="watermark">CODEMATRIX<br>SOFTWARE SOLUTION</div>
+        <div class="watermark-text">CODEMATRIX<br>SOLUTION</div>
 
-        <div class="header">
-            <div class="logo-placeholder">C</div>
-            <div class="company-info">
+        <div class="cert-header">
+            <div class="company-titles">
                 <h1>CODEMATRIX SOFTWARE SOLUTION</h1>
                 <p>AN IT SOLUTIONS & SOFTWARE DEVELOPMENT COMPANY</p>
             </div>
+            <div class="hexagon-logo">C</div>
         </div>
 
         <div class="content">
-            <p class="cert-title">INTERNSHIP COMPLETION CERTIFICATE</p>
+            <p class="intern-title">INTERNSHIP COMPLETION CERTIFICATE</p>
             <p>This is to certify that</p>
-            <h1 class="student-name" id="certName" data-text="Student Name">Student Name</h1>
-            <p>has successfully completed an internship with <b>Codematrix Software Solution</b><br>
-            as a <b class="internship-role" id="certRole">Internship Type</b>.</p>
+            <h1 class="student-display-name" id="outName">Student Name</h1>
+            <p>has successfully completed internship with <b>Codematrix Software Solution</b><br>
+            as a <b class="dyn-role" id="outRole">Web Developer</b> during the period from <b class="dyn-start" id="outStart">YYYY-MM-DD</b> to <b class="dyn-end" id="outEnd">YYYY-MM-DD</b>.</p>
         </div>
 
-        <div class="details-container">
-            <div class="detail-item">
-                <label>Duration</label>
-                <span id="certDuration">Duration</span>
-            </div>
-            <div class="detail-item">
-                <label>College</label>
-                <span id="certCollege">College Name</span>
-            </div>
-            <div class="detail-item">
-                <label>Technologies</label>
-                <span id="certTech">Technologies</span>
-            </div>
-            <div class="detail-item">
-                <label>Performance</label>
-                <span id="certPerformance">Performance</span>
-            </div>
+        <div class="details-stack">
+            <div class="stack-item"><label>Duration</label><span id="outDur">Duration</span></div>
+            <div class="stack-item"><label>College</label><span id="outCol">College Name</span></div>
+            <div class="stack-item"><label>Technologies</label><span id="outTech">Technologies</span></div>
+            <div class="stack-item"><label>Performance</label><span id="outPerf">Performance</span></div>
         </div>
 
-        <div class="manual-id-container">
-            <label>Certificate ID</label>
-            <span class="manual-id-value" contenteditable="true" placeholder="Type ID here (e.g. FAIZAN123)"></span>
+        <div class="id-display-block">
+            <label>Certificate ID:</label>
+            <span id="outID">Certificate ID</span>
         </div>
 
-        <p style="font-size: 13px; color: #555; margin-top: 20px; text-align: center;">
+        <p style="font-size: 13px; color: #555; margin-top: 25px; text-align: center; font-style: italic;">
             We appreciate his/her contribution to the organization and wish him/her all the best for future endeavors.
         </p>
 
-        <div class="footer">
-            <div class="signature-box">
-                <p class="signature-text">For Codematrix Software Solution</p>
-                <p class="signature-faizan">Faizan Ahmed</p> 
+        <div class="cert-footer">
+            <div class="sign-box">
+                <p style="margin: 0; font-weight: bold; color: #333;">For Codematrix Software Solution</p>
+                <p class="faizan-sign-cursive">Faizan Ahmed</p> 
                 <div class="signatory-details">
                     <small>Authorized Signatory:<br>FAIZAN AHMED</small>
                 </div>
             </div>
 
-            <div class="seal-box">
-                <div class="seal-codematrix">
-                    <span class="seal-text-arch">CODEMATRIX SOFTWARE</span>
-                    <span>MSME<br>REGISTERED</span>
+            <div class="seal-circle-container">
+                <div class="codematrix-msme-seal">
+                    <span class="arch-company-text">CODEMATRIX SOFTWARE</span>
+                    <span class="msme-main-text"><span class="msme-star">★</span>MSME REGISTERED<span class="msme-star">★</span></span>
                     <span style="font-size: 8px;">★ MSME REGISTERED ★</span>
                 </div>
-                <small style="color: #0056b3;">Company Seal</small>
+                <small style="color: #0056b3; font-weight: bold;">Company Seal</small>
             </div>
         </div>
     </div>
 
     <script>
-        function updateCertText(id, value) {
-            const element = document.getElementById(id);
-            if(element) {
-                element.innerText = value || element.placeholder || "Enter details above";
+        function update(outputId, inputValue) {
+            const outputElement = document.getElementById(outputId);
+            if(outputElement) {
+                outputElement.innerText = inputValue || outputElement.dataset.placeholder || outputElement.innerText;
             }
+        }
+
+        // Initialize with default placeholder values
+        document.querySelectorAll('[id^="out"]').forEach(el => el.dataset.placeholder = el.innerText);
+
+        // PDF Generation Function
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const certElement = document.getElementById('certificate');
+            
+            // Capture as image with higher scale for quality
+            const canvas = await html2canvas(certElement, { 
+                scale: 3, 
+                useCORS: true 
+            });
+            const imgData = canvas.toDataURL('image/png');
+            
+            // Setup A4 PDF
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            
+            pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
+            
+            // Save filename based on student name
+            const fileName = document.getElementById('outName').innerText.trim() || 'Certificate';
+            pdf.save(`${fileName}_Certificate.pdf`);
         }
     </script>
 
