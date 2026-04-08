@@ -3,225 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internship Certificate</title>
+    <title>Professional Internship Certificate - Codematrix</title>
     <style>
+        /* Base Styling */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', Times, serif; /* Professional Serif Font */
             background-color: #f0f2f5;
             display: flex;
-            justify-content: center;
-            padding: 50px 0;
+            flex-direction: column;
+            align-items: center;
             margin: 0;
+            padding-top: 30px;
         }
 
+        /* Color Scheme Variables */
+        :root {
+            --primary-color: #1a1a40; /* Very Dark Purple/IndiGo */
+            --accent-color: #ffd700; /* Gold for subtle accents */
+            --text-color: #2c2c2c;
+            --student-name-color: #0d0d26;
+        }
+
+        /* Form Styling (Not shown in print) */
+        .no-print {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            width: 800px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .form-group { margin-bottom: 10px; display: flex; align-items: center; }
+        .form-group label { width: 150px; font-weight: bold; color: var(--primary-color); }
+        .form-group input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+
         /* Certificate Container */
-        .certificate-card {
+        .certificate-container {
             background-color: white;
             width: 850px;
-            padding: 60px;
-            border: 1px solid #d1d9e0;
+            height: 1100px; /* A4 Portrait Ratio */
+            padding: 80px 60px;
+            border: 2px solid var(--primary-color); /* Dark Purple Border */
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Watermark (Representative of image_3) */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            opacity: 0.05;
+            font-family: sans-serif;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            padding: 30px;
+            text-align: center;
+            width: 250px; height: 250px;
         }
 
         /* Header Section */
         .header {
             display: flex;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
         }
-
         .logo-placeholder {
-            width: 50px;
-            height: 50px;
-            background-color: #f15a24; /* WebReich Orange */
-            margin-right: 15px;
-            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-        }
-
-        .company-info h1 {
-            color: #f15a24;
-            margin: 0;
+            width: 60px; height: 60px;
+            background-color: var(--primary-color);
+            color: #fff; font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px;
+            margin-right: 20px;
             font-size: 24px;
+        }
+        .company-info h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 28px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-
         .company-info p {
             margin: 0;
             font-size: 12px;
             color: #555;
+            letter-spacing: 3px;
         }
 
-        .cert-id {
-            position: absolute;
-            top: 60px;
-            right: 60px;
-            border: 1px solid #e0e6ed;
-            border-radius: 15px;
-            padding: 10px 20px;
+        /* Title */
+        .cert-title {
+            letter-spacing: 4px;
+            font-size: 16px;
+            color: var(--primary-color);
+            margin-bottom: 40px;
             text-align: center;
         }
 
-        .cert-id small { color: #f15a24; font-weight: bold; }
-
-        /* Main Content */
+        /* Main Content with dynamic text insertion */
         .content {
             text-align: center;
             margin-top: 20px;
         }
-
-        .title {
-            letter-spacing: 3px;
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 30px;
-        }
-
         .student-name {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: bold;
             margin: 15px 0;
-            color: #1a1a1a;
+            color: var(--student-name-color);
+            display: inline-block;
+            border-bottom: 1px solid #ddd;
+        }
+        .internship-role {
+            font-weight: 600;
+            color: var(--primary-color);
         }
 
-        /* Details Blocks (As in your image) */
+        /* Dynamic Detail Blocks */
         .details-container {
-            margin-top: 40px;
+            margin-top: 60px;
             text-align: left;
         }
-
         .detail-item {
             border: 1px solid #eef2f6;
             border-radius: 18px;
-            padding: 12px 25px;
-            margin-bottom: 12px;
+            padding: 15px 30px;
+            margin-bottom: 15px;
             background-color: #fff;
+            border-left: 5px solid var(--primary-color); /* Professional left border */
         }
-
         .detail-item label {
             display: block;
             font-size: 11px;
             color: #888;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             text-transform: uppercase;
         }
-
         .detail-item span {
             font-size: 18px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-color);
         }
 
-        /* Footer Section */
-        .footer {
-            margin-top: 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .signature-box {
-            width: 200px;
-            text-align: left;
-        }
-
-        .signature-img {
-            width: 120px;
-            margin-bottom: 5px;
-        }
-
-        .seal-box {
-            text-align: center;
-            color: #0056b3;
-        }
-
-        .seal-circle {
-            width: 90px;
-            height: 90px;
-            border: 2px solid #0056b3;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        /* Print Button - Not shown on print */
-        @media print {
-            .no-print { display: none; }
-            body { background-color: white; padding: 0; }
-            .certificate-card { border: none; box-shadow: none; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="certificate-card">
-        <div class="cert-id">
-            <small>CERTIFICATE ID</small><br>
-            <b>WRI06042622</b>
-        </div>
-
-        <div class="header">
-            <div class="logo-placeholder"></div>
-            <div class="company-info">
-                <h1>WEBREICH TECHNOLOGIES</h1>
-                <p>(An IT Solutions & Software Development Company)</p>
-            </div>
-        </div>
-
-        <div class="content">
-            <p class="title">INTERNSHIP COMPLETION CERTIFICATE</p>
-            <p>This is to certify that</p>
-            <h1 class="student-name">Shaikh Farihan</h1>
-            <p>has successfully completed an internship with <b>WebReich Technologies</b><br>
-            as a <b>Web Developer</b> during the period from <b>2026-01-01</b> to <b>2026-02-01</b>.</p>
-        </div>
-
-        <div class="details-container">
-            <div class="detail-item">
-                <label>Duration</label>
-                <span>150 Hours</span>
-            </div>
-            <div class="detail-item">
-                <label>College</label>
-                <span>Shri Shivaji College Akola</span>
-            </div>
-            <div class="detail-item">
-                <label>Technologies</label>
-                <span>React Js</span>
-            </div>
-            <div class="detail-item">
-                <label>Performance</label>
-                <span>Excellent</span>
-            </div>
-        </div>
-
-        <p style="font-size: 13px; color: #555; margin-top: 20px;">
-            We appreciate his/her contribution to the organization and wish him/her all the best for future endeavors.
-        </p>
-
-        <div class="footer">
-            <div class="signature-box">
-                <p style="font-size: 14px; margin-bottom: 10px;"><b>For WebReich Technologies</b></p>
-                <p style="font-family: cursive; font-size: 20px; margin: 0;">Akshay D.B.</p> 
-                <hr style="border: 0; border-top: 1px solid #ccc; margin: 5px 0;">
-                <small>Authorized Signatory<br>Akshay D. Bhaltilak</small>
-            </div>
-
-            <div class="seal-box">
-                <div class="seal-circle">COMPANY<br>SEAL</div>
-                <small>Company Seal</small>
-            </div>
-        </div>
-    </div>
-
-    <button class="no-print" onclick="window.print()" style="position: fixed; top: 20px; right: 20px; padding: 10px 20px; background: #f15a24; color: white; border: none; border-radius: 5px; cursor: pointer;">
-        Print Certificate
-    </button>
-
-</body>
-</html>
+        /* Manual ID Container (Blank initially) */
+        .manual-id-container {
+            margin-top: 30px;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            padding: 15px;
+            text-
