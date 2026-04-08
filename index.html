@@ -2,87 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Official Certificate - Final Alignment</title>
+    <title>Fixed Alignment Certificate</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         
-        /* Control Panel */
         .admin-controls { 
-            background: #fff; padding: 25px; border-radius: 12px; width: 800px; 
+            background: #fff; padding: 20px; border-radius: 12px; width: 800px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: grid; 
-            grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; 
+            grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; 
         }
-        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
-        button { 
-            grid-column: span 2; padding: 12px; background: #1a1a40; 
-            color: white; border: none; border-radius: 6px; 
-            cursor: pointer; font-weight: bold; font-size: 16px; 
-        }
+        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+        button { grid-column: span 2; padding: 12px; background: #1a1a40; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-        /* CERTIFICATE BORDER & ALIGNMENT FIX */
-        #cert-wrapper { background: #f0f2f5; padding: 10px; } /* Ensures border isn't cut in PDF */
+        /* FIXED DIMENSIONS - Isse alignment nahi hilegi */
+        .pdf-page { width: 800px; padding: 0; background: #f0f2f5; }
 
         #certificate { 
-            width: 794px; height: 1123px; /* Standard A4 */
-            background: white; padding: 50px; 
-            border: 18px solid #1a1a40; /* Solid Bold Border */
+            width: 800px; 
+            height: 1132px; /* Perfect A4 ratio at 96 DPI */
+            background: white; 
+            padding: 50px; 
+            border: 20px solid #1a1a40; /* Proper Bold Border */
             box-sizing: border-box; 
             position: relative; 
-            display: flex; flex-direction: column; 
-            text-align: center;
+            display: flex; 
+            flex-direction: column; 
+            margin: 0 auto;
+            overflow: hidden;
         }
 
-        /* Watermark */
         .watermark {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 80px; font-weight: bold; 
+            font-size: 85px; font-weight: bold; 
             color: rgba(26, 26, 64, 0.04); 
-            z-index: 0; text-transform: uppercase;
+            z-index: 0; text-transform: uppercase; letter-spacing: 5px;
         }
 
         .header { 
             background: #1a1a40; color: white; padding: 25px; 
             border-radius: 5px; display: flex; justify-content: space-between; 
-            align-items: center; z-index: 1; margin-bottom: 30px;
+            align-items: center; z-index: 1; margin-bottom: 40px;
         }
 
         .student-name { 
-            font-size: 50px; font-weight: bold; color: #000; 
-            margin: 20px 0; border-bottom: 3px solid #1a1a40; 
-            display: inline-block; min-width: 300px; z-index: 1;
+            font-size: 52px; font-weight: bold; color: #000; 
+            margin: 25px 0; border-bottom: 4px solid #1a1a40; 
+            display: inline-block; min-width: 350px; z-index: 1;
         }
 
-        /* Detail Cards Alignment */
-        .details-container { margin: 30px auto; width: 90%; z-index: 1; }
+        .details-container { margin: 40px auto; width: 85%; z-index: 1; }
         .detail-row { 
-            border: 1px solid #ddd; border-left: 10px solid #1a1a40;
-            border-radius: 12px; padding: 15px 20px; margin-bottom: 12px;
+            border: 1px solid #eee; border-left: 10px solid #1a1a40;
+            border-radius: 12px; padding: 18px 25px; margin-bottom: 15px;
             display: flex; justify-content: space-between; align-items: center;
             background: #fafafa;
         }
-        .detail-row b { text-transform: uppercase; font-size: 12px; color: #555; }
-        .detail-row span { font-size: 18px; font-weight: 600; color: #1a1a40; }
+        .detail-row b { text-transform: uppercase; font-size: 13px; color: #555; letter-spacing: 1px; }
+        .detail-row span { font-size: 20px; font-weight: 600; color: #1a1a40; }
 
-        /* Footer Alignment */
         .footer { 
             display: flex; justify-content: space-between; 
             margin-top: auto; align-items: flex-end; 
-            padding: 20px 0; z-index: 1;
+            padding-bottom: 30px; z-index: 1;
         }
 
         .faizan-signature { 
             font-family: 'Brush Script MT', cursive; 
-            font-size: 45px; color: #1a1a40; margin: 0; 
+            font-size: 48px; color: #1a1a40; margin: 0; 
             transform: rotate(-3deg);
         }
 
         .blue-seal {
-            width: 120px; height: 120px; border: 5px double #0056b3; 
+            width: 130px; height: 130px; border: 6px double #0056b3; 
             border-radius: 50%; display: flex; flex-direction: column; 
             align-items: center; justify-content: center; color: #0056b3; 
-            font-weight: bold; transform: rotate(-5deg); background: white;
+            font-weight: bold; transform: rotate(-8deg); background: white;
+            box-shadow: 0 0 10px rgba(0,86,179,0.1);
         }
     </style>
 </head>
@@ -97,27 +94,27 @@
             <option value="500 HR">500 HR</option>
             <option value="600 HR">600 HR</option>
         </select>
-        <input type="text" id="inTech" placeholder="Technologies (e.g. React Js)" oninput="update()">
-        <button onclick="downloadHD()">DOWNLOAD PERFECT ALIGNED PDF</button>
+        <input type="text" id="inTech" placeholder="Technologies" oninput="update()">
+        <button onclick="downloadFixedPDF()">DOWNLOAD STABLE PDF</button>
     </div>
 
-    <div id="cert-wrapper">
+    <div class="pdf-page">
         <div id="certificate">
             <div class="watermark">CODEMATRIX</div>
 
             <div class="header">
                 <div style="text-align: left;">
-                    <h2 style="margin:0;">CODEMATRIX SOFTWARE SOLUTION</h2>
+                    <h2 style="margin:0; letter-spacing: 1px;">CODEMATRIX SOFTWARE SOLUTION</h2>
                     <small>SOFTWARE DEVELOPMENT & IT SOLUTIONS</small>
                 </div>
-                <div style="background: white; color: #1a1a40; padding: 10px; font-weight: bold; border-radius: 5px;">C</div>
+                <div style="background: white; color: #1a1a40; padding: 12px; font-weight: bold; border-radius: 5px; font-size: 18px;">C</div>
             </div>
 
-            <div style="z-index: 1; margin-top: 20px;">
-                <p style="letter-spacing: 5px; font-weight: bold; color: #1a1a40; font-size: 18px;">INTERNSHIP COMPLETION CERTIFICATE</p>
-                <p>This is to certify that</p>
+            <div style="z-index: 1;">
+                <p style="letter-spacing: 6px; font-weight: bold; color: #1a1a40; font-size: 20px; margin-top: 30px;">INTERNSHIP COMPLETION CERTIFICATE</p>
+                <p style="margin-top: 25px; font-size: 18px;">This is to certify that</p>
                 <div class="student-name" id="outName">Faizan Ahmed</div>
-                <p style="margin-top: 15px;">has successfully completed internship with <b>Codematrix Software Solution</b>.</p>
+                <p style="margin-top: 20px; font-size: 18px;">has successfully completed internship with <b>Codematrix Software Solution</b>.</p>
             </div>
 
             <div class="details-container">
@@ -127,22 +124,22 @@
                 <div class="detail-row"><b>Performance</b><span>Excellent</span></div>
             </div>
 
-            <p style="font-weight: bold; z-index: 1; font-size: 18px; margin-top: 20px;">
+            <p style="font-weight: bold; z-index: 1; font-size: 20px; margin-top: 20px;">
                 Certificate ID: <span id="outID" style="color: #1a1a40;">WRI06042622</span>
             </p>
 
             <div class="footer">
                 <div style="text-align: left;">
                     <p class="faizan-signature">Faizan Ahmed</p>
-                    <div style="border-top: 2px solid #333; width: 220px; padding-top: 5px;">
-                        <b>Authorized Signatory</b><br><small>FAIZAN AHMED</small>
+                    <div style="border-top: 2px solid #333; width: 240px; padding-top: 8px;">
+                        <b style="font-size: 16px;">Authorized Signatory</b><br><small style="font-size: 12px; color: #555;">FAIZAN AHMED</small>
                     </div>
                 </div>
 
                 <div class="blue-seal">
-                    <small style="font-size: 8px;">CODEMATRIX</small>
-                    <div style="font-size: 12px; margin: 2px 0;">★ MSME ★</div>
-                    <div style="font-size: 10px;">REGISTERED</div>
+                    <small style="font-size: 9px; letter-spacing: 1px;">CODEMATRIX</small>
+                    <div style="font-size: 14px; margin: 4px 0;">★ MSME ★</div>
+                    <div style="font-size: 11px; letter-spacing: 1px;">REGISTERED</div>
                 </div>
             </div>
         </div>
@@ -156,15 +153,24 @@
             document.getElementById('outTech').innerText = document.getElementById('inTech').value || "React Js";
         }
 
-        function downloadHD() {
+        function downloadFixedPDF() {
             const element = document.getElementById('certificate');
             const opt = {
                 margin:       0,
-                filename:     'Official_Certificate_Final.pdf',
+                filename:     'Perfect_Aligned_Certificate.pdf',
                 image:        { type: 'jpeg', quality: 1 },
-                html2canvas:  { scale: 3, useCORS: true },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                html2canvas:  { 
+                    scale: 3, 
+                    useCORS: true,
+                    width: 800, // Fixed width capture
+                    height: 1132, // Fixed height capture
+                    scrollY: 0,
+                    scrollX: 0
+                },
+                jsPDF:        { unit: 'px', format: [800, 1132], hotfixes: ['px_scaling'] }
             };
+            
+            // Isse alignment kabhi nahi hilegi chahe browser chhota ho ya bada
             html2pdf().set(opt).from(element).save();
         }
     </script>
