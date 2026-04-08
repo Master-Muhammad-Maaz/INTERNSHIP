@@ -157,4 +157,180 @@
             border: 1px solid #ccc;
             border-radius: 15px;
             padding: 15px;
-            text-
+            text-align: center;
+        }
+        .manual-id-container label {
+            display: block; font-size: 10px; color: var(--primary-color);
+            margin-bottom: 5px; text-transform: uppercase; font-weight: bold;
+        }
+        .manual-id-value {
+            font-size: 18px; font-weight: bold; color: var(--student-name-color);
+            min-height: 25px; /* Keeps it structured when blank */
+            display: inline-block; width: 100%; border-bottom: 1px dashed #ccc;
+            cursor: text;
+        }
+
+        /* Footer Section */
+        .footer {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-top: 20px;
+            border-top: 2px solid var(--primary-color);
+        }
+
+        .signature-box {
+            width: 250px;
+            text-align: left;
+        }
+        .signature-text {
+            color: #333; font-weight: bold; margin-bottom: 10px;
+        }
+        /* Using cursive as representation of signature image_2 */
+        .signature-faizan {
+            font-family: 'Brush Script MT', cursive; font-size: 32px; color: var(--student-name-color);
+            margin: 0; display: inline-block; transform: rotate(-3deg);
+        }
+        .signatory-details {
+            margin-top: 5px; font-size: 12px; color: #555;
+            border-top: 1px solid #eee; padding-top: 5px;
+        }
+        
+        .seal-box {
+            text-align: center;
+            color: #0056b3;
+            transform: rotate(-10deg);
+        }
+        /* Representation of Seal from image_3 */
+        .seal-codematrix {
+            width: 100px; height: 100px;
+            border: 3px solid #0056b3;
+            border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-family: sans-serif; font-weight: bold; font-size: 10px;
+            text-transform: uppercase; padding: 5px; background: rgba(0,86,179,0.02);
+        }
+        .seal-text-arch { font-size: 8px; margin-bottom: 5px; }
+
+        /* Print Controls */
+        @media print {
+            .no-print { display: none; }
+            body { background-color: white; padding: 0; }
+            .certificate-container { border: 2px solid var(--primary-color); box-shadow: none; width: 100%; height: auto; }
+            .manual-id-value { border: none; } /* Clear dashes on print */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+        <h3 style="color: var(--primary-color); text-align: center;">Certificate Details Form</h3>
+        <p style="font-size: 12px; color: #555; text-align: center;">Fill form -> Check Preview -> Ctrl + P</p>
+        
+        <div class="form-group">
+            <label>Student Name:</label>
+            <input type="text" id="inputName" placeholder="e.g. Shaikh Farihan" oninput="updateCertText('certName', this.value)">
+        </div>
+        <div class="form-group">
+            <label>College Name:</label>
+            <input type="text" id="inputCollege" placeholder="e.g. Shri Shivaji College Akola" oninput="updateCertText('certCollege', this.value)">
+        </div>
+        <div class="form-group">
+            <label>Duration:</label>
+            <input type="text" id="inputDuration" placeholder="e.g. 150 Hours" oninput="updateCertText('certDuration', this.value)">
+        </div>
+        <div class="form-group">
+            <label>Technologies:</label>
+            <input type="text" id="inputTech" placeholder="e.g. React Js" oninput="updateCertText('certTech', this.value)">
+        </div>
+        <div class="form-group">
+            <label>Performance:</label>
+            <input type="text" id="inputPerformance" placeholder="e.g. Excellent" oninput="updateCertText('certPerformance', this.value)">
+        </div>
+        <div class="form-group">
+            <label>Internship Type:</label>
+            <input type="text" id="inputRole" placeholder="e.g. Web Developer" oninput="updateCertText('certRole', this.value)">
+        </div>
+    </div>
+
+    <div class="certificate-container" id="certContainer">
+        
+        <div class="watermark">CODEMATRIX<br>SOFTWARE SOLUTION</div>
+
+        <div class="header">
+            <div class="logo-placeholder">C</div>
+            <div class="company-info">
+                <h1>CODEMATRIX SOFTWARE SOLUTION</h1>
+                <p>AN IT SOLUTIONS & SOFTWARE DEVELOPMENT COMPANY</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <p class="cert-title">INTERNSHIP COMPLETION CERTIFICATE</p>
+            <p>This is to certify that</p>
+            <h1 class="student-name" id="certName" data-text="Student Name">Student Name</h1>
+            <p>has successfully completed an internship with <b>Codematrix Software Solution</b><br>
+            as a <b class="internship-role" id="certRole">Internship Type</b>.</p>
+        </div>
+
+        <div class="details-container">
+            <div class="detail-item">
+                <label>Duration</label>
+                <span id="certDuration">Duration</span>
+            </div>
+            <div class="detail-item">
+                <label>College</label>
+                <span id="certCollege">College Name</span>
+            </div>
+            <div class="detail-item">
+                <label>Technologies</label>
+                <span id="certTech">Technologies</span>
+            </div>
+            <div class="detail-item">
+                <label>Performance</label>
+                <span id="certPerformance">Performance</span>
+            </div>
+        </div>
+
+        <div class="manual-id-container">
+            <label>Certificate ID</label>
+            <span class="manual-id-value" contenteditable="true" placeholder="Type ID here (e.g. FAIZAN123)"></span>
+        </div>
+
+        <p style="font-size: 13px; color: #555; margin-top: 20px; text-align: center;">
+            We appreciate his/her contribution to the organization and wish him/her all the best for future endeavors.
+        </p>
+
+        <div class="footer">
+            <div class="signature-box">
+                <p class="signature-text">For Codematrix Software Solution</p>
+                <p class="signature-faizan">Faizan Ahmed</p> 
+                <div class="signatory-details">
+                    <small>Authorized Signatory:<br>FAIZAN AHMED</small>
+                </div>
+            </div>
+
+            <div class="seal-box">
+                <div class="seal-codematrix">
+                    <span class="seal-text-arch">CODEMATRIX SOFTWARE</span>
+                    <span>MSME<br>REGISTERED</span>
+                    <span style="font-size: 8px;">★ MSME REGISTERED ★</span>
+                </div>
+                <small style="color: #0056b3;">Company Seal</small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateCertText(id, value) {
+            const element = document.getElementById(id);
+            if(element) {
+                element.innerText = value || element.placeholder || "Enter details above";
+            }
+        }
+    </script>
+
+</body>
+</html>
